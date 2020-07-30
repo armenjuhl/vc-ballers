@@ -2,8 +2,8 @@
 idea/*
 db.json
 package-lock.json
-target.txt
 yarn.lock*
+env*
 
 # dependencies
 /node_modules
