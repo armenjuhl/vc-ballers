@@ -1,9 +1,15 @@
 const express = require('express');
-const app = express();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-// const {MONGO_URI} = require('./.env');
+const postRoutes = require('./routes/post');
+const authRoutes = require('./routes/auth');
+const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
+const cookieParser = require('cookie-parser');
+
+const app = express();
+
 dotenv.config();
 
 mongoose.connect(
@@ -16,9 +22,12 @@ mongoose.connection.on('error', err => {
   console.log(`DB connection error: ${err.message}`)
 });
 
-const postRoutes = require('./routes/post');
-
 app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(expressValidator());
+app.use('/', postRoutes);
+app.use('/', authRoutes);
 // app.use(myOwnMiddleware);
 
 app.use('/', postRoutes);
