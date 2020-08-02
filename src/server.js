@@ -2,8 +2,6 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const postRoutes = require('./routes/post');
-const authRoutes = require('./routes/auth');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const cookieParser = require('cookie-parser');
@@ -22,13 +20,22 @@ mongoose.connection.on('error', err => {
   console.log(`DB connection error: ${err.message}`)
 });
 
+const postRoutes = require('./routes/post');
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
+
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(expressValidator());
 app.use('/', postRoutes);
 app.use('/', authRoutes);
-// app.use(myOwnMiddleware);
+app.use('/', userRoutes);
+app.use(function (err, req, res, next) {
+  if (err.name === "UnauthorizedError") {
+    res.status(401).json({ error: "Unauthorized!" });
+  }
+});
 
 app.use('/', postRoutes);
 
