@@ -46,7 +46,7 @@ exports.signin = (req, res) => {
 };
 
 exports.requireSignin = expressJwt({
-  // if jwt token is valid, express jwt appends the verifies user id in an auth key to the request object
+  // if jwt token is valid, express jwt appends the verifies user id is in an auth key to the request object
   secret: process.env.JWT_SECRET,
   algorithms: ['HS256'],
   userProperty: 'auth'
