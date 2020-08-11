@@ -1,5 +1,5 @@
 {
-  "name": "vc-ballers-mvp",
+  "name": "vc-ballers-api",
   "version": "0.1.0",
   "description": "A Node Js API",
   "main": "server.js",
