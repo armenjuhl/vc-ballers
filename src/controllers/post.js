@@ -56,6 +56,7 @@ exports.createPost = (req, res, next) => {
         });
       }
       res.json(result);
+      next();
     });
   });
 

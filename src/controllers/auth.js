@@ -3,13 +3,15 @@ require('dotenv').config();
 const User = require('../models/user');
 const expressJwt = require('express-jwt');
 
-exports.signup = async (req, res ) => {
+exports.signup = async(req, res) => {
+  console.log('\n\nATTENTION***\nMade it to signup');
   const userExists = await User.findOne({email: req.body.email});
   if (userExists) return res.status(403).json({
     error: "Email is taken!"
   });
   const user = await new User(req.body);
   await user.save();
+  console.log('\nUser signup successful\n');
   res.status(200).json({ message: "User sign up successful" })
 };
 

@@ -19,6 +19,7 @@ exports.createPostValidator = (req, res, next) => {
 };
 
 exports.userSignupValidator = (req, res, next) => {
+  console.log('Inside validator. \nREQ: ' + JSON.stringify(req));
   req.check('name', 'Name is required').notEmpty();
   req.check('email', 'Email is required').notEmpty();
   req.check('email', 'must be between 3 - 50 characters').notEmpty()
